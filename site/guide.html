@@ -151,6 +151,33 @@ Discontinuity: [type, measured depth, method e.g. eddy current]
   <section class="panel step">
     <div class="num">6</div>
     <div>
+      <h2>Reinforce the prompt with its own best answers</h2>
+      <p>The assistant's best answers become its examples. This makes every future answer match them in format, citations and tone.</p>
+      <ol>
+        <li><b>Pick the winners.</b> From your test runs, choose 3–5 answers that were fully correct: right limit, right row, column and footnote, and the right format. Include at least one where it correctly asked for missing details.</li>
+        <li><b>Verify by hand.</b> A qualified inspector checks each one against the standard. Only satisfactory, human-verified answers go in. Never add an unchecked answer.</li>
+        <li><b>Paste them into the instructions</b> under an <code>&lt;examples&gt;</code> section, each as the question followed by the approved answer:</li>
+      </ol>
+<pre>&lt;examples&gt;
+&lt;example&gt;
+Question: [the exact test question]
+Approved answer: [the assistant's verified answer, unchanged]
+&lt;/example&gt;
+&lt;example&gt;
+Question: [a question with missing details]
+Approved answer: [the answer where it said "Not specified" and asked]
+&lt;/example&gt;
+&lt;/examples&gt;</pre>
+      <ol start="4">
+        <li><b>Re-run all 10 tests.</b> Keep the new examples only if every test still passes.</li>
+        <li><b>Repeat when things change:</b> a new revision of the standard, a new grade or size, or any wrong answer in daily use. Date each revision of the prompt so you can trace which version gave which answer.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="panel step">
+    <div class="num">7</div>
+    <div>
       <h2>Optional: put a calculator on the web with GitHub</h2>
       <p>Once your rules are fixed, you can turn them into a small web page like ours that works on any phone.</p>
       <ol>
@@ -165,7 +192,7 @@ Discontinuity: [type, measured depth, method e.g. eddy current]
   </section>
 
   <section class="panel step">
-    <div class="num">7</div>
+    <div class="num">8</div>
     <div>
       <h2>Keep a human in the loop</h2>
       <ul>
