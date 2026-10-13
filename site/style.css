@@ -73,3 +73,6 @@ table.cls th { color: var(--muted); font-size: 12px; }
   .grid { display: block; } .panel { border: none; padding: 0; }
   body { background: #fff; } .band { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+.buildlink { display: inline-block; margin-top: 14px; padding: 8px 14px; border-radius: 10px; background: #fff; border: 1px solid var(--blue); color: var(--blue); font-weight: 600; text-decoration: none; }
+.buildlink:hover { background: var(--blue); color: #fff; }

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build Your Own Inspection Assistant</title>
+<meta name="description" content="Step-by-step instructions to build a document-grounded (RAG) inspection assistant from your own standards, using our example prompt.">
+<meta http-equiv="Cache-Control" content="no-cache">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css?v=3">
+<style>
+  .guide { max-width: 860px; margin: 24px auto 48px; padding: 0 16px; display: flex; flex-direction: column; gap: 20px; }
+  .back { display: inline-block; margin-top: 14px; color: var(--blue); font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .step { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; }
+  .num { width: 44px; height: 44px; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 700; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+  .step h2 { font-size: 20px; margin: 8px 0 8px; }
+  .step p, .step li { color: var(--body); }
+  .step ul, .step ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+  .note { background: #fff7e6; border: 1px solid #f0d9a8; border-radius: 12px; padding: 14px 16px; color: var(--navy); }
+  .note b { color: var(--amber); }
+  pre { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.5; background: #0f2338; color: #e6eef7; border-radius: 12px; padding: 16px; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+  .prompt-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 12px 0 8px; }
+  .tag { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .06em; color: var(--blue); }
+  code { font-family: 'JetBrains Mono', monospace; font-size: 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+  .tests { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 15px; }
+  .tests th, .tests td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .tests th { color: var(--muted); font-size: 13px; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; gap: 6px; } .num { width: 36px; height: 36px; font-size: 17px; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="bar"></div>
+    <p class="eyebrow">BUILD YOUR OWN · DOCUMENT-GROUNDED (RAG) INSPECTION ASSISTANT</p>
+    <h1>Make one for your standard in an afternoon</h1>
+    <p class="sub">Your documents. Your acceptance criteria. Our example prompt. About 1–2 hours from sign-up to first tested answer.</p>
+    <a class="back" href="index.html">← Back to the live A108 assistant</a>
+  </div>
+</header>
+
+<main class="guide">
+
+  <div class="note"><b>Before you start:</b> use only AI tools your company has approved, and only standards you hold a license for. Never upload export-controlled, proprietary or customer data to a public AI tool. The assistant gives guidance; a qualified Level II / III makes the call.</div>
+
+  <section class="panel step">
+    <div class="num">1</div>
+    <div>
+      <h2>Set up an AI (LLM) account</h2>
+      <p>Pick a tool that can hold <b>custom instructions plus your own documents</b> in one reusable workspace. That pairing is what makes it a document-grounded (RAG) assistant: it retrieves answers from your files instead of from memory.</p>
+      <ul>
+        <li><b>Claude</b> (claude.ai): create a <b>Project</b>, then add instructions and files to it.</li>
+        <li><b>ChatGPT</b> (chatgpt.com): create a <b>custom GPT</b>, or a <b>Project</b>, with instructions and files.</li>
+        <li><b>Microsoft Copilot</b> or another enterprise tool: use whichever "agent" or "workspace" feature your IT team has enabled.</li>
+      </ul>
+      <p>Sign up with your work email if your company has an enterprise plan. Feature names and plan limits change, so check the tool's help pages if a menu looks different.</p>
+    </div>
+  </section>
+
+  <section class="panel step">
+    <div class="num">2</div>
+    <div>
+      <h2>Gather your documents</h2>
+      <ul>
+        <li>The <b>licensed standard</b> (PDF) that holds your acceptance table, for example ASTM A108, ASME Section V, or AWS D1.1.</li>
+        <li>Any <b>companion standard</b> the table depends on. For A108 this is A29, for grade sulfur ranges.</li>
+        <li>Your <b>SOP, work instruction or cheat sheet</b>, so answers match how your shop works.</li>
+      </ul>
+      <p>Keep it small: only the documents the assistant needs. Fewer files means fewer wrong lookups.</p>
+    </div>
+  </section>
+
+  <section class="panel step">
+    <div class="num">3</div>
+    <div>
+      <h2>Paste the example prompt</h2>
+      <p>Copy this into the workspace's <b>instructions</b> field. Replace every <code>[BRACKETED]</code> item with your own details, starting with your assistant's name.</p>
+      <div class="prompt-head">
+        <span class="tag">EXAMPLE PROMPT · BASED ON OUR A108 ASSISTANT</span>
+        <button id="copyPrompt" class="ghost" type="button">Copy prompt</button>
+      </div>
+<pre id="prompt">&lt;role&gt;
+You are [ASSISTANT NAME], a quality-engineering assistant for [PRODUCT, e.g. cold finished steel bar].
+You interpret [STANDARD, e.g. ASTM A108-18] [TOPIC, e.g. surface inspection] requirements.
+&lt;/role&gt;
+
+&lt;source_material&gt;
+[LIST THE UPLOADED FILES, e.g. ASTM A108-18 (Table A1.8), ASTM A29-20 (Tables 1–2), Shop SOP-123]
+&lt;/source_material&gt;
+
+&lt;rules&gt;
+1. Answer ONLY from &lt;source_material&gt;. Never use memory for limits.
+2. Quote the table row/column and footnote you used, by label.
+3. If the needed [grade, size, condition] isn't in the source, say
+   "Not specified in the provided text", list what's missing, and ask
+   the user for the specific details needed.
+4. Never interpolate between [size ranges] unless the source says to.
+5. Keep units exactly as written; state any conversion separately.
+6. Don't give accept/reject decisions as final. Flag them as
+   "per the cited table; confirm against your engineering criteria."
+&lt;/rules&gt;
+
+&lt;input&gt;
+Product: [e.g. grade 1045]
+Size/shape: [e.g. 1 in. round]
+Finish/condition: [e.g. cold drawn]
+Discontinuity: [type, measured depth, method e.g. eddy current]
+&lt;/input&gt;
+
+&lt;output_format&gt;
+- Applicable table row/column:
+- Tolerance value (with units):
+- Footnotes/conditions that apply:
+- Result: acceptable / rejectable / cannot determine
+- Assumptions or missing info:
+&lt;/output_format&gt;</pre>
+    </div>
+  </section>
+
+  <section class="panel step">
+    <div class="num">4</div>
+    <div>
+      <h2>Upload your documents and add examples</h2>
+      <ol>
+        <li>Upload the files from step 2 to the workspace's <b>knowledge</b> or <b>files</b> area.</li>
+        <li>Add 2–3 worked <b>input → output</b> examples in the same format as the prompt. Examples teach the format faster than rules do.</li>
+        <li>Save the workspace and give it the name you chose.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="panel step">
+    <div class="num">5</div>
+    <div>
+      <h2>Test it before anyone relies on it</h2>
+      <p>Write 10 questions whose answers you already know, checked by hand against the standard. Include the hard ones:</p>
+      <table class="tests">
+        <tr><th>Test type</th><th>What a good answer does</th></tr>
+        <tr><td>Straight lookup</td><td>Gives the right limit and cites the row, column and footnote</td></tr>
+        <tr><td>Clearly over / under</td><td>Says rejectable / acceptable, with the math</td></tr>
+        <tr><td>Missing details</td><td>Says "Not specified" and asks for exactly what's missing</td></tr>
+        <tr><td>Impossible input</td><td>Flags it (e.g. "10 % sulfur" for a table that stops at 0.35 %)</td></tr>
+        <tr><td>Out of scope</td><td>Refuses to guess outside the table's range</td></tr>
+      </table>
+      <p style="margin-top:10px">Any wrong answer: tighten the rule it broke, add an example, and re-run all 10.</p>
+    </div>
+  </section>
+
+  <section class="panel step">
+    <div class="num">6</div>
+    <div>
+      <h2>Optional: put a calculator on the web with GitHub</h2>
+      <p>Once your rules are fixed, you can turn them into a small web page like ours that works on any phone.</p>
+      <ol>
+        <li>Create a free account at <b>github.com</b>.</li>
+        <li>Click <b>New repository</b>, give it a name, and make it <b>Public</b>.</li>
+        <li>Click <b>Add file → Upload files</b> and upload your page files (an <code>index.html</code> at minimum). Commit.</li>
+        <li>Open <b>Settings → Pages</b>, choose to deploy from your main branch, and save.</li>
+        <li>After a minute or two, your link appears at the top of that page. Turn it into a QR code for your team.</li>
+      </ol>
+      <p>Do not put licensed standard text or tables in a public repository. Keep the standard inside your company's AI workspace.</p>
+    </div>
+  </section>
+
+  <section class="panel step">
+    <div class="num">7</div>
+    <div>
+      <h2>Keep a human in the loop</h2>
+      <ul>
+        <li><b>Traceable:</b> every answer cites its reference criteria.</li>
+        <li><b>Bounded:</b> it answers only from your documents, and asks when unsure.</li>
+        <li><b>Accountable:</b> the inspector cross-checks every result before it reaches the record or an NCR.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Guidance only. Confirm every result against your licensed copy of the standard and your engineering criteria. Not affiliated with or endorsed by ASTM International or any AI provider.</p>
+</footer>
+
+<script>
+  (function () {
+    var b = document.getElementById('copyPrompt');
+    b.addEventListener('click', function () {
+      var t = document.getElementById('prompt').innerText;
+      function done() { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy prompt'; }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(t).then(done, function () { fallback(t); done(); });
+      } else { fallback(t); done(); }
+    });
+    function fallback(t) {
+      var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(a);
+    }
+  })();
+</script>
+</body>
+</html>
