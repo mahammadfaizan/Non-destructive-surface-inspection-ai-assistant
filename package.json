@@ -1,0 +1,11 @@
+{
+  "name": "a108-surface-inspection-assistant",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ASTM A108-18 Table A1.8 surface discontinuity checker: red / green / amber signals with full citations.",
+  "scripts": {
+    "test": "node --test tests/session.test.js",
+    "start": "npx --yes http-server site -p 8080 -c-1"
+  },
+  "engines": { "node": ">=18" }
+}
