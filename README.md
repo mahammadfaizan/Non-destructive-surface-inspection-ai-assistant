@@ -15,17 +15,17 @@ Every card cites the Table A1.8 row, column and footnotes, shows the math, lists
 
 ## Go live (one time, about 3 minutes)
 
-1. Create a new GitHub repository (for example `a108-inspector`), then push this folder to it:
+1. Create a new GitHub repository (for example `non-destructive-surface-inspection-ai-assistant`), then push this folder to it:
    ```bash
    cd a108-inspector
    git init -b main
    git add .
    git commit -m "A108 surface inspection assistant"
-   git remote add origin https://github.com/<you>/a108-inspector.git
+   git remote add origin https://github.com/<you>/non-destructive-surface-inspection-ai-assistant.git
    git push -u origin main
    ```
 2. On GitHub, open **Settings → Pages**, and under **Build and deployment → Source** pick **GitHub Actions**.
-3. Open the **Actions** tab. The *Test and deploy demo* workflow runs the tests, then publishes the site. When it turns green, the live link is shown on the run page (it looks like `https://<you>.github.io/a108-inspector/`).
+3. Open the **Actions** tab. The *Test and deploy demo* workflow runs the tests, then publishes the site. When it turns green, the live link is shown on the run page (it looks like `https://<you>.github.io/non-destructive-surface-inspection-ai-assistant/`).
 
 From then on, **every push to `main` re-runs the tests and redeploys automatically**. If a test fails, the old site stays up and nothing broken goes live.
 

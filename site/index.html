@@ -13,16 +13,16 @@
 <header class="top">
   <div class="brand">
     <div class="bar"></div>
-    <p class="eyebrow">ASTM A108-18 · TABLE A1.8 · SURFACE INSPECTION AI ASSISTANT</p>
+    <p class="eyebrow">ASTM A108-18 · TABLE A1.8 · EDDY CURRENT SURFACE INSPECTION AI ASSISTANT</p>
     <h1>Accounting For Every Aspect In Less Time</h1>
-    <p class="sub">Answers from the standard. Never from memory.</p>
+    <p class="sub">Eddy current finds the discontinuity. The standard decides the limit. Never from memory.</p>
   </div>
 </header>
 
 <main class="grid">
   <section class="panel ask">
     <h2>1 · Ask your inspection question</h2>
-    <textarea id="q" rows="4" placeholder="e.g. I have 1018 round cold drawn, 1 inch diameter, defect 20 thousandths deep. Acceptable?"></textarea>
+    <textarea id="q" rows="4" placeholder="e.g. 1018 round cold drawn, 1 inch diameter, eddy current discontinuity 20 thousandths deep. Acceptable?"></textarea>
     <div class="row">
       <button id="go" class="primary">Check it</button>
       <span class="hint">Ctrl + Enter</span>
@@ -41,7 +41,7 @@
       <label>Finish
         <select name="finish"><option value="">—</option><option>cold drawn</option><option>turned and polished</option><option>ground and polished</option></select>
       </label>
-      <label>Defect depth (in.) <input name="depth" type="number" step="0.001" min="0" placeholder="per side"></label>
+      <label>Discontinuity depth (in.) <input name="depth" type="number" step="0.001" min="0" placeholder="per side, from ET"></label>
       <label>Tolerance level
         <select name="level"><option value="">— (assume 1)</option><option value="1">Level 1</option><option value="2">Level 2</option></select>
       </label>
@@ -66,6 +66,7 @@
 </main>
 
 <footer class="foot">
+  <p><b>Method:</b> eddy current (ET) surface inspection of cold finished bar; the tool evaluates the measured discontinuity depth against acceptance criteria and does not replace evaluation by a qualified Level II / III inspector.</p>
   <p><b>Sources:</b> ASTM A108-18 Table A1.8 (footnotes A, B; clauses 9.1.2, S7.1) · ASTM A29/A29M-20 Tables 1–2 (grade sulfur ranges).
   Guidance only: per the cited table, confirm against your engineering criteria and your licensed copy of the standards. Not affiliated with or endorsed by ASTM International.</p>
 </footer>

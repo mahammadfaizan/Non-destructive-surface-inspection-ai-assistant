@@ -88,6 +88,7 @@
     if (r.sources.length) prod += ' <span class="muted">· ' + esc(r.sources.join('; ')) + '</span>';
     rows.push(['Product', prod]);
     rows.push(['Size / shape / finish', [input.size !== null ? input.size.toFixed(3) + ' in.' : '<i>Not given</i>', input.shape, input.finish].filter(Boolean).join(' · ')]);
+    rows.push(['Method', 'Eddy current (ET) · surface discontinuity']);
     rows.push(['Discontinuity', input.depth !== null ? '<b>' + input.depth.toFixed(3) + ' in.</b> ' + (input.ambiguousDepth ? '(depth or length?)' : 'deep, per side') : '<i>Not given</i>']);
     if (r.column) rows.push(['Table row / column', 'ASTM A108-18 Table A1.8 · <b>' + esc(r.row) + '</b> row · ' + esc(r.column)]);
     if (r.perClass.length) {
@@ -101,7 +102,7 @@
     }
     rows.push(['Footnotes', esc(r.footnotes.join(' '))]);
 
-    var html = '<div class="hdr"><span>SURFACE INSPECTION RESULT · ASTM A108-18</span><span>TABLE A1.8</span></div>' +
+    var html = '<div class="hdr"><span>EDDY CURRENT SURFACE INSPECTION RESULT · ASTM A108-18</span><span>TABLE A1.8</span></div>' +
       '<div class="band ' + r.signal + '"><div class="light"><div class="dot"></div></div><div><div class="verdict">' + esc(r.headline) + '</div><div class="detail">' + esc(r.detail) + '</div></div></div>' +
       '<div class="kv">' + rows.map(function (x) { return '<div class="k">' + x[0] + '</div><div>' + x[1] + '</div>'; }).join('') + '</div>';
     if (r.missing.length) html += '<div class="notes ask"><b>To give a firm answer, I need:</b><ul>' + r.missing.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul></div>';

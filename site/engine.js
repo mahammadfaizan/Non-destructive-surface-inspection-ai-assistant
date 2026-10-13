@@ -129,8 +129,8 @@
     }
 
     if (res.missing.length) {
-      if (input.ambiguousDepth) res.missing.unshift('Is the stated dimension the defect depth or its length? Table A1.8 limits depth only.');
-      else if (depth === null || depth === undefined || isNaN(depth)) res.missing.push('Measured defect depth per side');
+      if (input.ambiguousDepth) res.missing.unshift('Is the stated dimension the discontinuity depth or its length? Table A1.8 limits depth only.');
+      else if (depth === null || depth === undefined || isNaN(depth)) res.missing.push('Measured discontinuity depth per side (eddy current indication, verified)');
       if (!gradeKnown) res.missing.push('Grade or sulfur % (to pick the Table A1.8 column)');
       res.verdict = 'hold'; res.signal = 'amber';
       res.headline = 'HOLD · NEED MORE INFO';
@@ -161,7 +161,7 @@
       res.verdict = 'hold'; res.signal = 'amber';
       res.headline = 'HOLD · DEPTH OR LENGTH?';
       res.detail = 'Table A1.8 limits depth per side only. Confirm whether ' + (depth ? fmt(depth) : 'the stated dimension') + ' is the depth.';
-      res.missing.push('Is the stated dimension the defect depth or its length?');
+      res.missing.push('Is the stated dimension the discontinuity depth or its length?');
       return finish(res);
     }
     if (depth === null || depth === undefined || isNaN(depth)) {
@@ -212,7 +212,8 @@
   /* Plain-text record for an inspection log or NCR (output format from the project instructions). */
   function toText(res) {
     var L = [];
-    L.push('A108 SURFACE INSPECTION · ' + res.headline);
+    L.push('A108 EDDY CURRENT SURFACE INSPECTION · ' + res.headline);
+    L.push('- Method: Eddy current (ET); discontinuity depth per side as entered by the inspector');
     if (res.detail) L.push(res.detail);
     if (res.column) L.push('- Applicable table row/column: ASTM A108-18 Table A1.8, ' + res.row + ' row; ' + res.column);
     res.perClass.forEach(function (p) {

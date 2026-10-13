@@ -98,7 +98,7 @@
         var dv = frac(m[1]);
         if (dv !== null && dv < 0.25) {
           // too small to be a bar size or a meaningful length: read as depth, and say so
-          out.depth = dv; out.depthNote = '“' + m[0].trim() + ' defect” read as a depth of ' + dv.toFixed(3) + ' in. per side. Please confirm.';
+          out.depth = dv; out.depthNote = '“' + m[0].trim() + '” read as a discontinuity depth of ' + dv.toFixed(3) + ' in. per side. Please confirm.';
         } else { out.ambiguousDepth = true; out.depth = dv; }
         work = work.replace(m[0], ' ');
         i--; continue;
