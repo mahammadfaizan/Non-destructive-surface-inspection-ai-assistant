@@ -180,10 +180,10 @@
     var w = res.perClass.filter(function (p) { return p.within; }).length;
     if (w === res.perClass.length) {
       res.verdict = 'within'; res.signal = 'green';
-      res.headline = 'YES · WITHIN LIMIT';
+      res.headline = 'ACCEPTABLE · WITHIN LIMIT';
     } else if (w === 0) {
       res.verdict = 'exceeds'; res.signal = 'red';
-      res.headline = 'NO · EXCEEDS LIMIT';
+      res.headline = 'REJECTABLE · EXCEEDS LIMIT';
     } else {
       res.verdict = 'hold'; res.signal = 'amber';
       res.headline = 'HOLD · GRADE DECIDES';

@@ -95,7 +95,7 @@
       var t = '<table class="cls"><tr><th>Column group</th><th>Table value</th><th>Limit per side</th>' + (r.perClass[0].within !== undefined ? '<th>Result</th>' : '') + '</tr>';
       r.perClass.forEach(function (p) {
         t += '<tr><td>' + esc(p.label.replace('Carbon and Alloy, ', '')) + '</td><td>' + esc(p.tableValue) + '</td><td>' + esc(p.calc) + '</td>';
-        if (p.within !== undefined) t += '<td class="pill ' + (p.within ? 'ok">● Within' : 'no">● Exceeds') + ' <span class="muted">' + (p.margin ? 'by ' + p.margin.toFixed(3) : 'at limit') + '</span></td>';
+        if (p.within !== undefined) t += '<td class="pill ' + (p.within ? 'ok">● Acceptable' : 'no">● Rejectable') + ' <span class="muted">' + (p.margin ? 'by ' + p.margin.toFixed(3) : 'at limit') + '</span></td>';
         t += '</tr>';
       });
       rows.push(['Tolerance', t + '</table>']);
