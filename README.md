@@ -6,8 +6,8 @@ Type a surface-inspection question in plain English (or fill in the form) and ge
 
 | Signal | Meaning |
 |---|---|
-| 🟢 **YES · WITHIN LIMIT** | Depth is at or under the Table A1.8 limit for every column that applies |
-| 🔴 **NO · EXCEEDS LIMIT** | Depth is over the limit for every column that applies |
+| 🟢 **ACCEPTABLE · WITHIN LIMIT** | Depth is at or under the Table A1.8 limit for every column that applies |
+| 🔴 **REJECTABLE · EXCEEDS LIMIT** | Depth is over the limit for every column that applies |
 | 🟡 **HOLD** | Missing or unclear input, out of scope, or the answer depends on the grade, so it asks |
 | 🔵 **LIMIT** | No depth given, so it shows the allowable depth |
 
